@@ -1,3 +1,10 @@
+/**
+ * 2024-09-18 18:39:03
+ * @author Mint.Yan
+ * @description 学习 Rust Good Good Study Day Day Up
+ * @link https://kaisery.github.io/trpl-zh-cn/ch03-03-how-functions-work.html 
+*/
+
 // 2.猜数字游戏
 // use rand::Rng;
 // use std::{cmp::Ordering, io};
