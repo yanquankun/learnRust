@@ -157,3 +157,13 @@
 //     println!("The value of x is: {x}");
 //     println!("The value of y is: {y}");
 // }
+
+// 3.4 注释
+// fn main() {
+//     //! # 文档注释
+//     //! @link https://www.baidu.com
+//     //! @author Mint.Yan
+//     //! A library for modeling artistic concepts.
+
+//     // 单行注释
+// }
