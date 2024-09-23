@@ -168,79 +168,167 @@
 // }
 
 // 3.5 控制流
-fn main() {
-    let number = 15;
+// fn main() {
+//     let number = 15;
 
-    // rust if表达式必须是一个布尔表达式
-    // rust 本身不会帮你做隐式转换
-    if number < 5 {
-        println!("condition was true");
-    } else if number == 5 {
-        println!("condition was 5");
-    } else {
-        println!("condition was false");
-    }
+//     // rust if表达式必须是一个布尔表达式
+//     // rust 本身不会帮你做隐式转换
+//     if number < 5 {
+//         println!("condition was true");
+//     } else if number == 5 {
+//         println!("condition was 5");
+//     } else {
+//         println!("condition was false");
+//     }
 
-    let condition = true;
-    // 通过if表达式返回值时，必须保证每个分支的值是相同的类型
-    // 因为rust会自动推导表达式左侧的类型
-    let number = if condition { 1 } else { 0 };
+//     let condition = true;
+//     // 通过if表达式返回值时，必须保证每个分支的值是相同的类型
+//     // 因为rust会自动推导表达式左侧的类型
+//     let number = if condition { 1 } else { 0 };
 
-    println!("The value of number is: {number}");
+//     println!("The value of number is: {number}");
 
-    let mut counter = 0;
-    let result = loop {
-        counter += 1;
+//     let mut counter = 0;
+//     let result = loop {
+//         counter += 1;
 
-        if counter == 10 {
-            break counter * 2;
-        }
-    };
-    println!("The value of result is: {result}");
+//         if counter == 10 {
+//             break counter * 2;
+//         }
+//     };
+//     println!("The value of result is: {result}");
 
-    let mut count = 0;
-    'counting_up: loop {
-        println!("count = {count}");
-        let mut remaining = 10;
+//     let mut count = 0;
+//     'counting_up: loop {
+//         println!("count = {count}");
+//         let mut remaining = 10;
 
-        loop {
-            println!("remaining = {remaining}");
-            if remaining == 9 {
-                break;
-            }
-            if count == 2 {
-                break 'counting_up;
-            }
-            remaining -= 1;
-        }
+//         loop {
+//             println!("remaining = {remaining}");
+//             if remaining == 9 {
+//                 break;
+//             }
+//             if count == 2 {
+//                 break 'counting_up;
+//             }
+//             remaining -= 1;
+//         }
 
-        count += 1;
-    }
-    println!("End count = {count}");
+//         count += 1;
+//     }
+//     println!("End count = {count}");
 
-    let mut number = 0;
-    while number <= 3 {
-        println!("number = {number}");
+//     let mut number = 0;
+//     while number <= 3 {
+//         println!("number = {number}");
 
-        number += 1;
-    }
+//         number += 1;
+//     }
 
-    let mut arr = [1, 2, 3, 4, 5];
-    for (index, element) in arr.iter().enumerate() {
-        println!("the value is: {element}, at position: {index}");
-    }
-    arr.reverse();
-    for element in arr {
-        println!("the value is: {element}");
-    }
+//     let mut arr = [1, 2, 3, 4, 5];
+//     for (index, element) in arr.iter().enumerate() {
+//         println!("the value is: {element}, at position: {index}");
+//     }
+//     arr.reverse();
+//     for element in arr {
+//         println!("the value is: {element}");
+//     }
 
-    // 1..4 代表的是从[start]到[end-1]位置的值，实际上只有1 2 3
-    // 所以下面两种for循环会输出1 2 3的值
-    for number in 1..4 {
-        println!("{number}!");
-    }
-    println!("------------------");
-    for number in (1..4).rev() {
-        println!("{number}!");
-    }
-}
+//     // 1..4 代表的是从[start]到[end-1]位置的值，实际上只有1 2 3
+//     // 所以下面两种for循环会输出1 2 3的值
+//     for number in 1..4 {
+//         println!("{number}!");
+//     }
+//     println!("------------------");
+//     for number in (1..4).rev() {
+//         println!("{number}!");
+//     }
+// }
+
+// 4.1 所有权
+// fn main() {
+//     // 所有权机制 内存管理机制
+//     // 1. 每个值都有一个所有者
+//     // 2. 值在所有者离开作用域时被释放
+//     // 3. 当值的所有者离开作用域时，该值将被删除
+
+//     {
+//         // s 在这里无效，它尚未声明
+//         let _s = "hello"; // 从此处起，s 是有效的
+
+//         // 使用 s
+//     } // 此作用域已结束，s 不再有效
+//       // rust自动在 } 处释放 s 的内存，会自动调用drop函数
+
+//     let s: String = String::from("我是不可修改的字面值");
+//     println!("{}", s);
+
+//     // String 类型 分配在堆上  适合位置长度的数据
+//     let mut s = String::from("hello我是可修改的String");
+//     s.push_str(", world!"); // push_str() 在字符串后追加文字
+//     println!("{} len is {}", s, s.len()); // 将打印 `hello, world!`
+
+//     // 需要定义 Object 结构体
+//     struct Object {
+//         name: String,
+//         age: u32,
+//     }
+//     let obj: Object = Object {
+//         name: String::from("Mint.Yan"),
+//         age: 18,
+//     };
+//     println!("name is {}, age is {}", obj.name, obj.age);
+
+//     let s1 = String::from("hello");
+//     let s2 = s1; // 这里s2拷贝了s1，同时也对s1进行了释放，此时已经无法访问s1了
+//     println!("{}", s2);
+
+//     // 深拷贝
+//     // rust 永远不会自动创建深拷贝，因为深拷贝会占用大量资源
+//     let s1 = String::from("hello");
+//     let s2 = s1.clone();
+//     println!("s1 = {}, s2 = {}", s1, s2);
+
+//     // 函数所有权
+//     let s = String::from("hello"); // s 进入作用域
+//     takes_ownership(s); // s 的值移动到函数里
+//                         //所以到这里不再有效
+//     let x = 5; // x 进入作用域
+//     makes_copy(x); // x 应该移动函数里，
+//                    // 但 i32 是 Copy 的，
+//                    // 所以在后面可继续使用 x
+
+//     let sss = gives_ownership();
+//     println!("{}", sss);
+
+//     let (str, len): (String, usize) = calculate_length(String::from("hello"));
+//     println!("The length of '{}' is {}.", str, len);
+// } // 这里，x 先移出了作用域，然后是 s。但因为 s 的值已被移走，
+
+// fn takes_ownership(some_string: String) {
+//     // some_string 进入作用域
+//     println!("{}", some_string);
+// } // 这里，some_string 移出作用域并调用 `drop` 方法。
+//   // 占用的内存被释放
+
+// fn makes_copy(some_integer: i32) {
+//     // some_integer 进入作用域
+//     println!("{}", some_integer);
+// } // 这里，some_integer 移出作用域。没有特殊之处
+
+// fn gives_ownership() -> String {
+//     // gives_ownership 会将
+//     // 返回值移动给
+//     // 调用它的函数
+
+//     let some_string = String::from("yours"); // some_string 进入作用域。
+
+//     some_string
+//     // return some_string; // 等同直接写some_string 注意：不要写分号!!!
+// }
+
+// fn calculate_length(s: String) -> (String, usize) {
+//     let length = s.len(); // len() 返回字符串的长度
+
+//     (s, length)
+// }
